@@ -47,7 +47,7 @@ export class Scream extends Component {
             <Card className={classes.card}>
                 <CardMedia image={userImage} title="Profile image" className={classes.image}/>
                 <CardContent className={classes.content}>
-                    <Typography variant="h5" color="primary" component={Link}>{userHandle}</Typography>
+                    <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
                     <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
                 </CardContent>

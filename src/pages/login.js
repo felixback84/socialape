@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppIcon from '../img/logo192.png';
+import { Link } from 'react-router-dom';
 
 // axios
 import axios from 'axios';
@@ -11,28 +12,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-    form: { 
-        textAlign: 'center'
-    },
-    image: {
-        margin: '20px auto 20px auto'
-    },
-    pageTitle: {
-        margin: '10px auto 10px auto'
-    },
-    textField : {
-        margin: '10px auto 10px auto'
-    }, 
-    button: {
-        marginTop: 20
-    },
-    customError:{
-        color: 'red',
-        fontSize: '0.8rem'
-    }
-};
+// styles
+const styles = (theme) => ({
+    ...theme.notColor
+});
 
 class login extends Component {
     constructor(){
@@ -40,40 +25,22 @@ class login extends Component {
         this.state = {
             email: '',
             password: '',
-            loading: false,
             errors: {}
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({
-            loading: true
-        });
         const userData = {
             email: this.state.email,
             password: this.state.password
         }
-        axios.post('/login', userData)
-            .then(res => {
-                console.log(res.data);
-                this.setState({
-                    loading: false
-                });
-                this.props.history.push('/');
-            })
-            .catch(err => {
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                })
-            })
     };
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
-        })
+        });
     }
 
     render() {
@@ -121,9 +88,18 @@ class login extends Component {
                             type="submit" 
                             variant="contained" 
                             color="primary" 
-                            className={classes.button}>
-                                Submit
+                            className={classes.button}
+                            disabled={loading}>
+                                Login
+                                {loading && (
+                                    <CircularProgress size={30} className={classes.progress} />
+                                )}
                         </Button>
+                        <br />
+                        <small>
+                            dont have an account ? sign up <Link to="/signup">here</Link>
+                        </small>
+                        
                     </form>
                 </Grid>    
                 <Grid item sm />
