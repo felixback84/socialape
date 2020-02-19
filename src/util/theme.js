@@ -26,33 +26,49 @@ export default {
             pageTitle: {
                 margin: '10px auto 10px auto'
             },
-                textField: {
+            textField: {
                 margin: '10px auto 10px auto'
             },
-                button: {
+            button: {
                 marginTop: 20,
                 position: 'relative'
             },
-                customError: {
+            customError: {
                 color: 'red',
                 fontSize: '0.8rem',
                 marginTop: 10
             },
-                progress: {
+            progress: {
                 position: 'absolute'
             },
-                invisibleSeparator: {
+            invisibleSeparator: {
                 border: 'none',
                 margin: 4
             },
-                visibleSeparator: {
+            visibleSeparator: {
                 width: '100%',
                 borderBottom: '1px solid rgba(0,0,0,0.1)',
                 marginBottom: 20
             },
-                paper: {
+            paper: {
                 padding: 20
             },
+            
+            
+            card: {
+                position: 'relative',
+                display: 'flex',
+                marginBottom: 20
+                },
+            image: {
+                minWidth: 200
+            },
+            content: {
+                padding: 25,
+                objectFit: 'cover'
+            },
+
+
             profile: {
                 '& .image-wrapper': {
                     textAlign: 'center',

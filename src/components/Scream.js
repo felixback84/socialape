@@ -11,20 +11,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
-    card: {
-        position: 'relative',
-        display: 'flex',
-        marginBottom: 20
-        },
-    image: {
-        minWidth: 200
-    },
-    content: {
-        padding: 25,
-        objectFit: 'cover'
-    }
-};
+// styles
+const styles = (theme) => ({
+    ...theme.notColor
+});
 
 export class Scream extends Component {
     render() {

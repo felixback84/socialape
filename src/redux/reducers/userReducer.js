@@ -1,4 +1,4 @@
-// user actions
+ // user actions
 import {
     SET_USER,
     SET_ERRORS,
@@ -10,6 +10,7 @@ import {
     SET_AUTHENTICATED
 } from '../types';
 
+// initial state
 const initialState = {
     authenticated: false,
     loading: false,
@@ -18,6 +19,7 @@ const initialState = {
     notifications: []
 };
 
+// function to determine the type of action to set state
 export default function(state = initialState, action){
     switch(action.type){
         case SET_AUTHENTICATED:
@@ -32,7 +34,12 @@ export default function(state = initialState, action){
                 authenticated: true,
                 loading: false,
                 ...action.payload
-        };  
+            };  
+        case LOADING_USER:
+            return {
+                ...state,
+                loading: true
+            };    
         default:
             return state;  
     }
