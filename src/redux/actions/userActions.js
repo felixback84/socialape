@@ -71,6 +71,28 @@ export const signupUser = (newUserData, history) => (dispatch) => {
         });
 } 
 
+// redux action to upload image on the server
+export const uploadImage = (formData) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+        .post('/user/image', formData)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch((err) => console.log(err));
+};
+
+// redux action to edit user details
+export const editUserDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+        .post('/user', userDetails)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch((err) => console.log(err));
+};
+
 // function to set auth header
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
