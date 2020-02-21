@@ -56,6 +56,7 @@ class EditDetails extends Component {
         const { credentials } = this.props;
         this.mapUserDetailsToState(credentials);
     }
+    
 
     handleChange = (event) => {
         this.setState({

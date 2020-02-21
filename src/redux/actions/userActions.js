@@ -91,7 +91,7 @@ export const editUserDetails = (userDetails) => (dispatch) => {
             dispatch(getUserData());
         })
         .catch((err) => console.log(err));
-};
+}; 
 
 // function to set auth header
 const setAuthorizationHeader = (token) => {
