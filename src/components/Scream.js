@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 // Componets
 import MyButton from '../util/MyButton';
+import DeleteScream from './DeleteScream';
 
 // MUI Stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -16,6 +17,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+
 // icons
 import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -32,26 +34,30 @@ const styles = (theme) => ({
 
 export class Scream extends Component {
 
+    // if the like already exists for the user
     likedScream = () => {
         if(
             this.props.user.likes && 
             this.props.user.likes.find(
-                    like => like.screamId === this.props.scream.screamId
+                    (like) => like.screamId === this.props.scream.screamId
                 )
         )
-        return true;
+            return true;
         else return false;
     };
 
+    // action to add like
     likeScream = () => {
-        this.props.likeScream(this.props.screamId);
-    }
+        this.props.likeScream(this.props.scream.screamId);
+    };
 
+    // action to undo like
     unlikeScream = () => {
-        this.props.unlikeScream(this.props.screamId);
-    }
+        this.props.unlikeScream(this.props.scream.screamId);
+    };
 
     render() {
+        
         dayjs.extend(relativeTime);
         // same: const classes = this.props.classes;
 
@@ -67,34 +73,40 @@ export class Scream extends Component {
                 commentCount 
             },
             user: {
-                authenticated
+                authenticated,
+                credentials:{ handle }
             } 
         } = this.props;
 
-        //like button logic
+        //like button logic to call one of above actions
         const likeButton = !authenticated ? (
             <MyButton tip="Like">
                 <Link to="/login">
                     <FavoriteBorder color="primary"/>
                 </Link>
             </MyButton>
-        ) : ( 
-            this.likedScream() ? (
-                <MyButton tip="Undo like" onClick={this.unlikeScream}>
+        ) : (this.likedScream() ? (
+                <MyButton screamId={screamId} tip="Undo like" onClick={this.unlikeScream}>
                     <FavoriteIcon color="primary"/>
                 </MyButton>
             ) : (
-                <MyButton tip="Like" onClick={this.likeScream}>
+                <MyButton screamId={screamId} tip="Like" onClick={this.likeScream}>
                     <FavoriteBorder color="primary"/>
                 </MyButton>
             )
-        )
+        );
         
+        // logic to the delete button, check if the scream belongs to the current user
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteScream screamId={screamId}/>
+        ) : null
+
         return (
             <Card className={classes.card}>
                 <CardMedia image={userImage} title="Profile image" className={classes.image}/>
                 <CardContent className={classes.content}>
                     <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
+                    {deleteButton}
                     <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
                     {likeButton}
@@ -110,14 +122,14 @@ export class Scream extends Component {
 }
 
 Scream.propTypes = {
-    likedScream: PropTypes.func.isRequired,
+    //likedScream: PropTypes.func.isRequired,
     unlikeScream: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     scream: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     user: state.user 
 })
 

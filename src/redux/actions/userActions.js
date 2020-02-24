@@ -38,20 +38,6 @@ export const logoutUser = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED });
 }; 
 
-// redux action to get or set user data 
-export const getUserData = () => (dispatch) => {
-    dispatch({ type: LOADING_USER });
-    axios
-        .get('/user')
-        .then((res) => { 
-            dispatch({
-                type: SET_USER,
-                payload: res.data
-            });
-        })
-        .catch((err) => console.log(err));
-};
-
 // redux action to signup new users 
 export const signupUser = (newUserData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
@@ -70,6 +56,20 @@ export const signupUser = (newUserData, history) => (dispatch) => {
             })
         });
 } 
+
+// redux action to get or set user data 
+export const getUserData = () => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+        .get('/user')
+        .then((res) => { 
+            dispatch({
+                type: SET_USER,
+                payload: res.data
+            });
+        })
+        .catch((err) => console.log(err));
+};
 
 // redux action to upload image on the server
 export const uploadImage = (formData) => (dispatch) => {
