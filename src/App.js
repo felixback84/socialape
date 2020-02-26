@@ -18,7 +18,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import themeObject from './util/theme';
 
 // Components
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 import AuthRoute from './util/AuthRoute';
 
 // Pages

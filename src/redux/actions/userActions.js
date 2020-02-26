@@ -93,7 +93,7 @@ export const editUserDetails = (userDetails) => (dispatch) => {
         .catch((err) => console.log(err));
 }; 
 
-// function to set auth header
+// function to store auth header
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
