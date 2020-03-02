@@ -48,7 +48,7 @@ export const getScream = (screamId) => (dispatch) => {
             dispatch({ type: STOP_LOADING_UI });
         })
         .catch((err) => console.log(err));
-};
+}; 
 
 // Post a scream
 export const postScream = (newScream) => (dispatch)=> {
@@ -122,6 +122,25 @@ export const deleteScream = (screamId) => (dispatch) => {
     })
     .catch(err => console.log(err));
 }
+
+// action for set the public page of the users
+export const getUserPublicData = (userHandle) => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios
+        .get(`/user/${userHandle}`)
+        .then((res) => {
+            dispatch({
+                type: SET_SCREAMS,
+                payload: res.data.screams
+            });
+        })
+        .catch(() => {
+            dispatch({
+                type: SET_SCREAMS,
+                payload: null
+            });
+        });
+};
 
 export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });

@@ -16,12 +16,15 @@ class home extends Component {
 
     componentDidMount() {
         this.props.getScreams(); 
+        
     }
     render() {
-        const { screams, loading } = this.props.data;
+        //const { screams, loading } = this.props.data;
+        const screams = this.props.data.screams;
+        const loading = this.props.data.loading;
 
         let recentScreamsMarkup = !loading ? (
-            screams.map(scream => <Scream key = {scream.screamId} scream = {scream}/>)
+            screams.map(scream => <Scream key ={scream.screamId} scream ={scream}/>)
         ) : (
                 <p>Loading...</p>
         );
@@ -46,5 +49,6 @@ home.propTypes = {
 const mapStateToProps = state => ({
     data: state.data
 })
+
 
 export default connect(mapStateToProps, {getScreams})(home);

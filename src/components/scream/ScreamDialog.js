@@ -53,19 +53,45 @@ const styles = (theme) => ({
 class ScreamDialog extends Component {
 
     state = {
-        open: false
-    }
+        open: false,
+        oldPath: '',
+        newPath: ''
+
+    };
+
+    componentDidMount(){
+        if(this.props.openDialog){
+            this.handleOpen();
+        }
+    };
 
     handleOpen = () => {
-        this.setState({ open: true });
+        // twitter behaivour in screams
+        // build url for screamDialog
+        let oldPath = window.location.pathname;
+
+        // passing from props
+        const { userHandle, screamId } = this.props;
+        const newPath = `/users/${userHandle}/scream/${screamId}`;
+
+        // comming from any place and return to the user page
+        if(oldPath === newPath) oldPath = `/users/${userHandle}`
+
+        window.history.pushState(null, null, newPath);
+        
+        this.setState({ open: true, oldPath, newPath });
+
+        // redux action
         this.props.getScream(this.props.screamId);
     }
 
     handleClose = () => {
+        window.history.pushState(null, null, this.state.oldPath);
+        // redux actions
         this.setState({ open: false });
         this.props.clearErrors();
-    }
-
+    } 
+  
     render(){
         const {
             classes,
@@ -81,7 +107,7 @@ class ScreamDialog extends Component {
             },
             UI: { loading }
         } = this.props;
-
+        
         const dialogMarkup = loading ? (
             <CircularProgress size={5}/>
         ) : (

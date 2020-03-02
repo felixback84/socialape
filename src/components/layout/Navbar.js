@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // Components/util
 import MyButton from '../../util/MyButton';
 import PostScream from '../scream/PostScream';
+import Notifications from './Notifications';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -32,9 +33,7 @@ class Navbar extends Component {
                                     <HomeIcon  />
                                 </MyButton>
                             </Link>
-                            <MyButton tip="Notifications">
-                                <Notifications  />
-                            </MyButton>
+                            <Notifications />
                         </Fragment>
                     ) : (
                         <Fragment>

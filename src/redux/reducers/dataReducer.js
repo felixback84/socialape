@@ -29,7 +29,7 @@ export default function(state = initialState, action){
                 screams: action.payload,
                 loading: false  
             };
-        case SET_SCREAM:
+        case SET_SCREAM: 
             return{
                 ...state,
                 scream:action.payload
@@ -37,14 +37,15 @@ export default function(state = initialState, action){
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
             let index = state.screams.findIndex(
-                (scream) => scream.screamId === action.payload.screamId);
+                (scream) => scream.screamId === action.payload.screamId
+            );
             state.screams[index] = action.payload;
-            if(state.scream.screamId === action.payload.screamId){
+            if (state.scream.screamId === action.payload.screamId) {
                 state.scream = action.payload;
             }
-            return{
+            return {
                 ...state
-            };   
+            }; 
         case DELETE_SCREAM:
             // erase from state to dont make another reload to obtain the actual state of the screams after erase one
             let index_1 = state.screams.findIndex(
@@ -63,13 +64,15 @@ export default function(state = initialState, action){
                 ]
             }; 
         case SUBMIT_COMMENT:
-            return{
+            return {
                 ...state,
-                comments: [
-                    action.payload, 
-                    ...state.scream.comments
-                ]
-            }    
+                scream: {
+                    ...state.scream,
+                    comments: [
+                        action.payload, ...state.scream.comments
+                    ]
+                }
+            };  
         default:
             return state;
     }

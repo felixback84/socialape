@@ -93,6 +93,18 @@ export const editUserDetails = (userDetails) => (dispatch) => {
         .catch((err) => console.log(err));
 }; 
 
+// to determine of the notifications was read
+export const markNotificationsRead = (notificationsIds) => dispatch => {
+    axios
+        .post('/notifications', notificationsIds)
+        .then (res => {
+            dispatch({
+                type: MARK_NOTIFICATIONS_READ
+            })
+        })
+        .catch(err => console.log(err));
+} 
+
 // function to store auth header
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
